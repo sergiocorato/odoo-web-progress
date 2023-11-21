@@ -141,12 +141,14 @@ class Base(models.AbstractModel):
             return super(Base, self).__iter__()
 
     @api.model
-    def _extract_records(self, fields_, data, log=lambda a: None, limit=float("inf")):
+    def _extract_records(self, fields_, data, log=lambda a: None, limit=None):
         """
         Add progress reporting to collection used in base_import.import
         It adds progress reporting to all standard imports and additionally makes them
          cancellable
         """
+        if limit is None:
+            limit = float("inf")
         extracted = super(Base, self)._extract_records(
             fields_, data, log=log, limit=limit
         )
