@@ -65,8 +65,8 @@ odoo.define("web.progress.bar", function (require) {
             core.bus.on("rpc_progress", this, this.showProgress);
         },
         setStyleClick: function (event) {
-            name = event.target.id;
-            this.setStyle(name);
+            const style_name = event.target.id;
+            this.setStyle(style_name);
             event.stopPropagation();
         },
         setStyle: function (name) {
@@ -147,15 +147,15 @@ odoo.define("web.progress.bar", function (require) {
             if (top_progress.time_left) {
                 var eta_msg = "";
                 var eta_msg2 = "";
-                if (this.style !== "standard") {
-                    eta_msg =
-                        top_progress.time_left + "<br/>" + top_progress.time_total;
-                } else {
+                if (this.style === "standard") {
                     eta_msg2 =
                         _t("Est. time left: ") +
                         top_progress.time_left +
                         " / " +
                         top_progress.time_total;
+                } else {
+                    eta_msg =
+                        top_progress.time_left + "<br/>" + top_progress.time_total;
                 }
                 this.$progress_time_eta.html(eta_msg);
                 this.$progress_time_eta2.html(eta_msg2);
@@ -207,7 +207,6 @@ odoo.define("web.progress.bar", function (require) {
             self.$progress_cancel.addClass("o_cancel_message");
             if (this.systray) {
                 self.$progress_cancel.find(".btn").addClass("btn-default");
-            } else {
             }
             var $progress_cancel_confirm_yes = self.$progress_cancel.find(
                 "#progress_cancel_yes"

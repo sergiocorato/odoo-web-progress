@@ -3,7 +3,6 @@ odoo.define("web_progress.ProgressMenu", function (require) {
     "use strict";
 
     var core = require("web.core");
-    var session = require("web.session");
     var SystrayMenu = require("web.SystrayMenu");
     var Widget = require("web.Widget");
     var ProgressBar = require("web.progress.bar").ProgressBar;
@@ -35,6 +34,7 @@ odoo.define("web_progress.ProgressMenu", function (require) {
         // Private
         /**
          * Iterate bus notifications
+         * @param {Object} notifications
          * @private
          */
         _onNotification: function (notifications) {
@@ -47,6 +47,7 @@ odoo.define("web_progress.ProgressMenu", function (require) {
         },
         /**
          * On every bus notification schedule update of all progress and pass progress message to progress bar
+         * @param {Object} notification
          * @private
          */
         _handleNotification: function (notification) {
@@ -62,7 +63,9 @@ odoo.define("web_progress.ProgressMenu", function (require) {
 
         /**
          * Add progress bar
+         * @param {Object} code
          * @private
+         * @returns {*}
          */
         _addProgressBar: function (code) {
             var progress_bar = this._findProgressBar(code);
@@ -77,6 +80,7 @@ odoo.define("web_progress.ProgressMenu", function (require) {
         },
         /**
          * Remove progress bar
+         * @param {Object} code
          * @private
          */
         _removeProgressBar: function (code) {
@@ -89,11 +93,13 @@ odoo.define("web_progress.ProgressMenu", function (require) {
         },
         /**
          * Find progress bar
+         * @param {Object} code
          * @private
+         * @returns {*}
          */
         _findProgressBar: function (code) {
             var found_bar = false;
-            if (this.progress_bars.hasOwnProperty(code)) {
+            if (Object.prototype.hasOwnProperty.call(this.progress_bars, code)) {
                 found_bar = this.progress_bars[code];
             }
             return found_bar;
@@ -103,7 +109,6 @@ odoo.define("web_progress.ProgressMenu", function (require) {
          * @private
          */
         _updateProgressMenu: function () {
-            var session_uid = this.getSession().uid;
             this.progressCounter = Object.keys(this.progress_bars).length;
             this.$(".o_notification_counter").text(this.progressCounter);
             if (this.progressCounter > 0) {
@@ -145,6 +150,9 @@ odoo.define("web_progress.ProgressMenu", function (require) {
         },
         /**
          * Process and display progress details
+         * @param {Object} code
+         * @param {String} state
+         * @param {String} uid
          * @private
          */
         _processProgressData: function (code, state, uid) {
@@ -165,6 +173,7 @@ odoo.define("web_progress.ProgressMenu", function (require) {
          * Get particular model view to redirect on click of progress scheduled on that model.
          * @private
          * @param {String} model
+         * @returns {*}
          */
         _getProgressModelViewID: function (model) {
             return this._rpc({

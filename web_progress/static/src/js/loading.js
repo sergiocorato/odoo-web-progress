@@ -9,7 +9,6 @@ odoo.define("web.progress.loading", function (require) {
     var core = require("web.core");
     var Loading = require("web.Loading");
 
-    var _t = core._t;
     var progress_timeout = 5000;
 
     Loading.include({
@@ -24,7 +23,7 @@ odoo.define("web.progress.loading", function (require) {
         },
         destroy: function () {
             for (var key in this.progress_timers) {
-                if (this.progress_timers.hasOwnProperty(key)) {
+                if (Object.prototype.hasOwnProperty.call(this.progress_timers, key)) {
                     clearTimeout(this.progress_timers[key]);
                 }
             }
@@ -37,7 +36,6 @@ odoo.define("web.progress.loading", function (require) {
             }
         },
         getProgressViaRPC: function (progress_code) {
-            var self = this;
             if (progress_code in this.progress_timers) {
                 clearTimeout(this.progress_timers[progress_code]);
             }
@@ -66,7 +64,6 @@ odoo.define("web.progress.loading", function (require) {
             // TODO: add move to background
         },
         cancelProgress: function (progress_code) {
-            var self = this;
             this._rpc(
                 {
                     model: "web.progress",
@@ -74,7 +71,9 @@ odoo.define("web.progress.loading", function (require) {
                     args: [progress_code],
                 },
                 {shadow: true}
-            ).then(function () {});
+            ).then(function () {
+                // Do nothing.
+            });
         },
         addProgress: function (progress_code, retries = 10) {
             var self = this;
