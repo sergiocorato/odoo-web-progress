@@ -176,7 +176,7 @@ class WebProgress(models.TransientModel):
               AND recur_depth = 0 {user_id}
         GROUP BY code
         """.format(
-            recency=recency or 0,
+            # recency=recency or 0,
             user_id=not self.is_progress_admin()
             and "AND create_uid = {user_id}".format(
                 user_id=self.env.user.id,

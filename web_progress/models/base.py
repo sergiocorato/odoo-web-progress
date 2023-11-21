@@ -40,7 +40,8 @@ class Base(models.AbstractModel):
         """
         Wrap self (current recordset) with progress reporting generator
         :param msg: msg to mass in progress report
-        :param total: provide total directly to avoid calling len on data (which fails on generators)
+        :param total: provide total directly to avoid calling len on data (which fails
+         on generators)
         :param cancellable: indicates whether the operation is cancellable
         :param log_level: log level to use when logging progress
         :return: yields every element of data
@@ -101,7 +102,7 @@ class Base(models.AbstractModel):
         if total is None:
             try:
                 total = len(data)
-            except:
+            except Exception:
                 # impossible to get total, so no way to show progress
                 return data
         return GeneratorWithLenIndexable(

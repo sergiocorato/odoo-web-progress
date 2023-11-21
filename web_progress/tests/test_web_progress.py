@@ -174,7 +174,7 @@ class WebProgressTestAllProgress(common.SavepointCase):
                 self.assertEqual(res, [{"code": progress_code}])
                 res = progress_obj.get_all_progress(0)
                 self.assertEqual(res, [])
-                with self.assertRaises(ProgrammingError) as e:
+                with self.assertRaises(ProgrammingError):
                     progress_obj.get_all_progress(
                         "0 SECOND' GROUP BY code; "
                         "SELECT code, array_agg(state) FROM web_progress "
