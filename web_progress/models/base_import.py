@@ -1,10 +1,10 @@
 # Part of web_progress. See LICENSE file for full copyright and licensing details.
-from odoo import models, api, registry, fields, _
+from odoo import models
 from odoo.exceptions import UserError
 
 
 class BaseImport(models.TransientModel):
-    _inherit = 'base_import.import'
+    _inherit = "base_import.import"
 
     def do(self, fields, columns, options, dryrun=False):
         """
@@ -14,7 +14,15 @@ class BaseImport(models.TransientModel):
         try:
             ret = super(BaseImport, self).do(fields, columns, options, dryrun=dryrun)
         except UserError as e:
-            ret = {'messages': [{'record': False, 'type': 'warning', 'message': e.name, }]}
+            ret = {
+                "messages": [
+                    {
+                        "record": False,
+                        "type": "warning",
+                        "message": e.name,
+                    }
+                ]
+            }
         except Exception:
             raise
         return ret

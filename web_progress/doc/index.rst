@@ -141,4 +141,3 @@ Does progress reporting work with reports?
 ===========================================
 
 Yes, you can iterate over the wrapped collections in QWeb reports and the progress will be visible to the user.
-

@@ -1,14 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <templates id="template" xml:space="preserve">
 
     <t t-name="WebProgressBarCancelConfirm">
-        <div id="cancel_message"  class="o_progress_message">Cancel ongoing operation?</div>
-        <button class="btn btn-secondary btn-sm btn-default" id="progress_cancel_yes">Yes</button>
-        <button class="btn btn-secondary btn-sm btn-default" id="progress_cancel_no">No</button>
+        <div
+            id="cancel_message"
+            class="o_progress_message"
+        >Cancel ongoing operation?</div>
+        <button
+            class="btn btn-secondary btn-sm btn-default"
+            id="progress_cancel_yes"
+        >Yes</button>
+        <button
+            class="btn btn-secondary btn-sm btn-default"
+            id="progress_cancel_no"
+        >No</button>
     </t>
 
     <t t-name="WebProgressBarCancel">
-        <button class="btn btn-sm btn-default fa fa-times o_progress_button" id="progress_cancel_confirm"/>
+        <button
+            class="btn btn-sm btn-default fa fa-times o_progress_button"
+            id="progress_cancel_confirm"
+        />
     </t>
 
     <t t-name="WebProgressBar">
@@ -21,16 +33,16 @@
                     <a href="#" id="nyan" onclick="return false;">nyan cat</a>
                 </div>
             </div>
-            <div id="progress_user" class="o_progress_user" style="visibility:hidden"/>
-            <div id="progress_time_elapsed"/>
+            <div id="progress_user" class="o_progress_user" style="visibility:hidden" />
+            <div id="progress_time_elapsed" />
             <div id="progress_frame">
-                <div id="progress_bar" style="width: 0%"/>
+                <div id="progress_bar" style="width: 0%" />
             </div>
-            <div id="progress_time_eta"/>
-            <div id="progress_cancel"/>
-            <div id="progress_percent"/>
-            <div id="progress_time_eta2"/>
-            <div id="progress_message" class="o_progress_details"/>
+            <div id="progress_time_eta" />
+            <div id="progress_cancel" />
+            <div id="progress_percent" />
+            <div id="progress_time_eta2" />
+            <div id="progress_message" class="o_progress_details" />
         </div>
     </t>
 

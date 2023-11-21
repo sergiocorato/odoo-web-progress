@@ -33,7 +33,7 @@
 #progress_bar {
     width: 1%;
     height: 10px;
-    background-color: #00EE00;
+    background-color: #00ee00;
 }
 
 #progress_bar.o_progress_bar_timeout {
@@ -56,7 +56,9 @@
     padding: 8px;
 }
 
-#progress_cancel_confirm, #progress_cancel_yes, #progress_cancel_no {
+#progress_cancel_confirm,
+#progress_cancel_yes,
+#progress_cancel_no {
     border: hidden;
 }
 
@@ -73,7 +75,8 @@
     margin-top: 0px;
 }
 
-.o_progress_message, .o_progress_button {
+.o_progress_message,
+.o_progress_button {
     background-color: transparent;
 }
 
