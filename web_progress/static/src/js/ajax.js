@@ -22,37 +22,6 @@ odoo.define("web.progress.ajax", function (require) {
             : ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, pseudoUuid);
     }
 
-    var RelayRequest = core.Class.extend(mixins.EventDispatcherMixin, {
-        init: function (url, fct_name, params, progress_code) {
-            mixins.EventDispatcherMixin.init.call(this);
-            core.bus.on("rpc_request", this, function () {
-                if (validateCall(url, fct_name, params)) {
-                    core.bus.trigger("rpc_progress_request", progress_code);
-                }
-                this.destroy();
-            });
-        },
-    });
-
-    var RelayResult = core.Class.extend(mixins.EventDispatcherMixin, {
-        init: function () {
-            mixins.EventDispatcherMixin.init.call(this);
-            core.bus.on("rpc:result", this, function (data, result) {
-                var progress_code = -1;
-                var context = findContext(data.params);
-                if (context) {
-                    progress_code = context.progress_code;
-                    if (progress_code in progress_codes) {
-                        delete progress_codes[progress_code];
-                        core.bus.trigger("rpc_progress_result", progress_code);
-                    }
-                }
-            });
-        },
-    });
-
-    var relay_result = new RelayResult();
-
     function validateCall(url, fct_name, params, settings) {
         if (settings && settings.shadow) {
             // Do not track shadowed calls
@@ -78,6 +47,37 @@ odoo.define("web.progress.ajax", function (require) {
         }
         return ret;
     }
+
+    var RelayRequest = core.Class.extend(mixins.EventDispatcherMixin, {
+        init: function (url, fct_name, params, progress_code) {
+            mixins.EventDispatcherMixin.init.call(this);
+            core.bus.on("rpc_request", this, function () {
+                if (validateCall(url, fct_name, params)) {
+                    core.bus.trigger("rpc_progress_request", progress_code);
+                }
+                this.destroy();
+            });
+        },
+    });
+
+    var RelayResult = core.Class.extend(mixins.EventDispatcherMixin, {
+        init: function () {
+            mixins.EventDispatcherMixin.init.call(this);
+            core.bus.on("rpc:result", this, function (data) {
+                var progress_code = -1;
+                var context = findContext(data.params);
+                if (context) {
+                    progress_code = context.progress_code;
+                    if (progress_code in progress_codes) {
+                        delete progress_codes[progress_code];
+                        core.bus.trigger("rpc_progress_result", progress_code);
+                    }
+                }
+            });
+        },
+    });
+
+    var relay_result = new RelayResult();
 
     function genericRelayEvents(url, fct_name, params) {
         if (validateCall(url, fct_name, params)) {
