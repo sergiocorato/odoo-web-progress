@@ -41,6 +41,7 @@ class RestoreEnvToComputeToWrite(Exception):
 class WebProgress(models.TransientModel):
     _name = "web.progress"
     _description = "Operation Progress"
+    # allow web_progress to survive for 0.5h in case process is slow
     _transient_max_hours = 0.5
     # time between progress reports (in seconds)
     _progress_period_secs = 5
